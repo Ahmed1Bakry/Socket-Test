@@ -657,9 +657,11 @@ void MainWindow::loadSettings()
     ui->tabWidget->setCurrentIndex(settings.value("TAB_INDEX", 0).toInt());
 
     int index = settings.value("interfaceIndex", 0).toInt();
+    index = ui->comboBox_Interface->currentIndex();
     if (interfaceList.count() == 0) return;
     if (ui->comboBox_Interface->count() >= index)
     {
+
         ui->comboBox_Interface->setCurrentIndex(index);
         for (int i = 0; i < interfaceList.at(index).addressEntries().size(); ++i)
         {
@@ -671,7 +673,7 @@ void MainWindow::loadSettings()
     }
     else if (ui->comboBox_Interface->count() > 0 && ui->comboBox_Interface->count() < index)
     {
-        ui->comboBox_Interface->setCurrentIndex(0);
+        ui->comboBox_Interface->setCurrentIndex(index);
         for (int i = 0; i < interfaceList.at(0).addressEntries().size(); ++i)
         {
             if (interfaceList.at(0).addressEntries().at(i).ip().protocol() == QAbstractSocket::IPv4Protocol)
@@ -707,8 +709,8 @@ void MainWindow::saveSettings()
 
 void MainWindow::onRefreshButtonClicked()
 {
-    saveSettings();
-    findLocalIPs();
+    //saveSettings();
+    //findLocalIPs();
     loadSettings();
 }
 
